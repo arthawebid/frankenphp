@@ -8,7 +8,11 @@
 docker run -d --name frankenserver1 -e "SERVER_NAME=:8080" -v ./app:/app/public -p 8080:80 dunglas/frankenphp
 
 ## docker-compose
-menggunakan docker compose
+### Membuild docker
+```
+docker compose build
+```
+Mengaktifkan docker compose
 ```
 docker compose up -d
 ```
