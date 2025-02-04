@@ -14,7 +14,7 @@ docker compose up -d
 ```
 berikut ini file dari docker-compose.yml 
 
-```bash
+```
 version: '1.0'
 
 services:
