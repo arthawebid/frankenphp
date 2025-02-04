@@ -23,5 +23,4 @@ services:
       - "8080:80"
     environment:
       - "SERVER_NAME=:8080"
-</code>
 ```
