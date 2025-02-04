@@ -8,16 +8,8 @@
 docker run -d --name frankenserver1 -e "SERVER_NAME=:8080" -v ./app:/app/public -p 8080:80 dunglas/frankenphp
 
 ## docker-compose
-### Membuild docker
-```
-docker compose build
-```
-Mengaktifkan docker compose
-```
-docker compose up -d
-```
+## Membuat file docker-compose.yml
 berikut ini file dari docker-compose.yml 
-
 ```
 version: '1.0'
 
@@ -32,3 +24,80 @@ services:
     environment:
       - "SERVER_NAME=:8080"
 ```
+## Membuild docker
+```
+docker compose build
+```
+Mengaktifkan docker compose
+```
+docker compose up -d
+```
+Menghapus docker
+```
+docker compose down
+```
+
+# Mysql PhpMyadmin dan Frankenphp
+## Mendefinisikan Dockerfile
+1. Mengambil image docker frankenphp
+2. Menambahkan extensi php
+```
+FROM dunglas/frankenphp:latest
+
+RUN docker-php-ext-install pdo pdo_mysql mysqli
+```
+## Membuat file docker-compose.yml
+```
+version: '1.0'
+
+services:
+  frankenphp:
+    build: .
+    container_name: Project01
+    volumes:
+      - ./app:/app/public
+    ports:
+      - "8080:80"
+    environment:
+      - "SERVER_NAME=:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+        
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlrootpwd
+      MYSQL_DATABASE: database
+      MYSQL_USER: username
+      MYSQL_PASSWORD: userpassword
+      SERVER_NAME: 3306 
+    ports:
+      - "3306:3306"
+    volumes:
+      - /public/mysqldata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: username
+      PMA_PASSWORD: userpassword
+      SERVER_NAME: 8585 
+    ports:
+      - "8585:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+```
+
