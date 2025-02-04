@@ -6,7 +6,11 @@
 ####     └── index.php
     
 docker run -d --name frankenserver1 -e "SERVER_NAME=:8080" -v ./app:/app/public -p 8080:80 dunglas/frankenphp
-<code>
+
+## docker-compose
+
+berikut ini file dari docker-compose.yml
+```bash
 version: '1.0'
 
 services:
@@ -20,3 +24,4 @@ services:
     environment:
       - "SERVER_NAME=:8080"
 </code>
+```
