@@ -106,7 +106,11 @@ volumes:
 ```sh
 docker tag web-franmyphp arthawebid/franmyphp:1.0
 ```
-2. Push image ke docker hub
+2. Login ke docker hub
+```sh
+docker login
+```
+3. Push image ke docker hub
 ```sh
 docker push arthawebid/franmyphp:1.0
 ```
