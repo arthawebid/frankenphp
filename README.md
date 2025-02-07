@@ -1,6 +1,6 @@
 # Frankenphp
 ## FrankenPHP mode runtine biasa
-#### project-folder/
+#### project-folder-docker1/
 #### ├── docker-compose.yml
 #### ├── app/
 ####     └── index.php
@@ -14,7 +14,7 @@ berikut ini file dari docker-compose.yml
 version: '1.0'
 
 services:
-  frankenphp:
+  franmyphp:
     image: dunglas/frankenphp:latest
     container_name: Project01
     volumes:
@@ -51,7 +51,7 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 version: '1.0'
 
 services:
-  frankenphp:
+  franmyphp:
     build: .
     container_name: Project01
     volumes:
@@ -100,4 +100,13 @@ services:
 volumes:
   mysql_data:
 ```
-
+## Upload ke Docker Hub
+1. image yang akan di-push harus menyertakan username registry. Misalnya username saya adalah arthawebid, berarti nama images menjadi arthawebid/repository:tag
+```sh
+docker tag web-franmyphp arthawebid/franmyphp:1.0
+```sh
+2. Push image ke docker hub
+```sh
+docker push arthawebid/franmyphp:1.0
+```sh
+3. setelah terkirim/terupload ke docker hub silahkan edit deskripsi imagenya
